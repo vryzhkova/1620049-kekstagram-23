@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
-* Студент: [Виктория Рыжкова](https://up.htmlacademy.ru/javascript/23/user/1620049).
-* Наставник: `Неизвестно`.
+- Студент: [Виктория Рыжкова](https://up.htmlacademy.ru/javascript/23/user/1620049).
+- Наставник: [Магомед Кандаев](https://htmlacademy.ru/profile/magomedkandaev).
 
 ---
 
