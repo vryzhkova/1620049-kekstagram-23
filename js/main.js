@@ -1,21 +1,25 @@
-function randomNumber(min, max) {
-  if (min < 0) {
-    min = 0;
-  }
+// Первая функция
+
+function getRandomNumber(min, max) {
+  let temp;
   if (max <= min) {
-    max = min + 1;
+    temp = min;
+    min = max;
+    max = temp;
+  }
+  if (min <= 0) {
+    min = 0;
   }
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-randomNumber(0, 100);
+getRandomNumber(0, 100);
 
-function stringLength(string, maxLength) {
-  if (string.length > maxLength) {
-    return false;
-  } else {
-    return true;
-  }
+
+// Вторая функция
+
+function isValidString(string, maxLength) {
+  return string.length <= maxLength;
 }
 
-stringLength("vika", 140);
+isValidString('vika', 140);
