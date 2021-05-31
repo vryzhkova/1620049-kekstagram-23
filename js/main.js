@@ -1,11 +1,8 @@
 // Первая функция
 
 function getRandomNumber(min, max) {
-  let temp;
   if (max <= min) {
-    temp = min;
-    min = max;
-    max = temp;
+    [min, max] = [max, min];
   }
   if (min <= 0) {
     min = 0;
@@ -23,3 +20,4 @@ function isValidString(string, maxLength) {
 }
 
 isValidString('vika', 140);
+
