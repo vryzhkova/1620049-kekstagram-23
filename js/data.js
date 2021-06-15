@@ -1,5 +1,7 @@
 import {getRandomNumber} from './util.js';
 
+const PHOTOS_COUNT = 25;
+
 const NAMES = [
   'Артём',
   'Василий',
@@ -51,7 +53,5 @@ const createPhoto = (id) => {
 };
 
 export function createPhotos () {
-  const PHOTOS_COUNT = 25;
-  const photos = new Array(PHOTOS_COUNT).fill(null).map((photo, index) => createPhoto(index + 1));
-  return photos;
+  return new Array(PHOTOS_COUNT).fill(null).map((photo, index) => createPhoto(index + 1));
 }
