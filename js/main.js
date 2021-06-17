@@ -1,5 +1,2 @@
-
-import {createPhotos} from './data.js';
-
-createPhotos();
-
+import './drawingThumbnails.js';
+import './data.js';
