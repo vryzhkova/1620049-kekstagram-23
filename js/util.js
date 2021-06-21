@@ -13,4 +13,6 @@ export function isValidString(string, maxLength) {
   return string.length <= maxLength;
 }
 
-
+export function isEscEvent(evt) {
+  return evt.key === 'Escape' || evt.key === 'Esc';
+}
