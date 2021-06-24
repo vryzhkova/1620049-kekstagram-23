@@ -10,3 +10,30 @@ export function drawingThumbnails (photos) {
     pictures.appendChild(photosElement);
   });
 }
+
+
+// домашка 7.2
+
+
+export function createFullSizePhotos () {
+
+  const bigPicture = document.querySelector('.big-picture');
+  const pictures_ = document.querySelectorAll('.picture');
+  const bigPictureImg = document.querySelector('.big-picture__img');
+
+
+  pictures_.forEach((picture) => {
+    picture.addEventListener('click', () => {
+      bigPicture.classList.remove('hidden');
+      bigPictureImg.src = picture.url;
+
+    });
+  });
+}
+
+// const createFullSizePhotos = () => {
+//   bigPicture.addEventListener('click', () => {
+//     bigPicture.classList.remove('hidden');
+//   },
+
+//   );};

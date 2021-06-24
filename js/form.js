@@ -8,62 +8,71 @@ const textHashtags = document.querySelector('.text__hashtags');
 const textDescription = document.querySelector('.text__description');
 const re = /^#[A-Za-zА-Яа-я0-9]{1,19}$/;
 
-uploadFile.addEventListener('change', () => {
-  uploadOverlay.classList.remove('hidden');
-  body.classList.add('modal-open');
-});
 
 const closeModal = function () {
   uploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
 
-  uploadOverlay.value = '';
+  uploadFile.value = '';
   textHashtags.value = '';
   textDescription.value = '';
 };
+
+const closeModalIsEsc = (evt) => {
+  if (document.activeElement !== textDescription &&  document.activeElement !== textHashtags ) {
+    if (isEscEvent(evt)) {
+      evt.preventDefault();
+      closeModal();
+      body.removeEventListener('keydown', closeModalIsEsc);
+    }
+  }
+};
+
+uploadFile.addEventListener('change', () => {
+  uploadOverlay.classList.remove('hidden');
+  body.classList.add('modal-open');
+  body.addEventListener('keydown', closeModalIsEsc);
+});
+
 
 uploadCancel.addEventListener('click', () => {
   closeModal();
 });
 
-body.addEventListener('keydown', (evt) => {
-  if (document.activeElement !== textDescription &&  document.activeElement !== textHashtags ) {
-    if (isEscEvent(evt)) {
-      evt.preventDefault();
-      closeModal();
-    }
-  }
-});
-
 // Хэш-теги
 
 textHashtags.addEventListener('input', () => {
-  const hashtags = textHashtags.value.trim().split(' ');
+  const hashtags = textHashtags.value.trim().split(' ').filter(Boolean);
+
   if (hashtags.length > 5) {
     textHashtags.setCustomValidity('Нельзя указать больше пяти хэш-тегов');
   } else {
-    textHashtags.setCustomValidity('');
-  }
-
-  hashtags.forEach((hashtag) => {
-    if (re.test(hashtag)) {
-      const dublicates = hashtags.filter((dublicate) => dublicate.toLowerCase() === hashtag.toLowerCase());
-      if (dublicates.length >= 2) {
-        textHashtags.setCustomValidity('Один и тот же хэш-тег не может быть использован дважды');
-      } else {
-        textHashtags.setCustomValidity('');
-        textHashtags.style.border = 'none';
-      }
+    if (hashtags.length > 0) {
+      hashtags.forEach((hashtag) => {
+        if (re.test(hashtag)) {
+          const dublicates = hashtags.filter((dublicate) => dublicate.toLowerCase() === hashtag.toLowerCase());
+          if (dublicates.length >= 2) {
+            textHashtags.setCustomValidity('Один и тот же хэш-тег не может быть использован дважды');
+          } else {
+            textHashtags.setCustomValidity('');
+            textHashtags.style.border = 'none';
+          }
+        } else {
+          textHashtags.setCustomValidity('Невалидный хэштег');
+          textHashtags.style.border = '2px solid red';
+        }
+      });
     } else {
-      textHashtags.setCustomValidity('Невалидный хэштег');
-      textHashtags.style.border = '2px solid red';
+      textHashtags.setCustomValidity('');
+      textHashtags.style.border = 'none';
     }
-  });
+
+  }
 
   textHashtags.reportValidity();
 });
 
-// Комментарий
+// Комментарии
 
 textDescription.addEventListener('input', () => {
   if (isValidString(textDescription.value, 140) === false) {
