@@ -18,12 +18,12 @@ const closeModal = function () {
   textDescription.value = '';
 };
 
-const closeModalIsEsc = (evt) => {
+const onCloseModalEsc = (evt) => {
   if (document.activeElement !== textDescription &&  document.activeElement !== textHashtags ) {
     if (isEscEvent(evt)) {
       evt.preventDefault();
       closeModal();
-      body.removeEventListener('keydown', closeModalIsEsc);
+      body.removeEventListener('keydown', onCloseModalEsc);
     }
   }
 };
@@ -31,7 +31,7 @@ const closeModalIsEsc = (evt) => {
 uploadFile.addEventListener('change', () => {
   uploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
-  body.addEventListener('keydown', closeModalIsEsc);
+  body.addEventListener('keydown', onCloseModalEsc);
 });
 
 
