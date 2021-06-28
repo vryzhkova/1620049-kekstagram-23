@@ -47,21 +47,21 @@ function hideModal() {
   body.classList.remove('modal-open');
 }
 
+const onEscHideModal = (evt) => {
+  if (isEscEvent(evt)){
+    evt.preventDefault();
+    hideModal();
+    body.removeEventListener('keydown', onEscHideModal);
+  }
+};
 
 export function createFullSizePhoto(picture) {
   openModal();
 
-  bigPictureCancel.addEventListener('click', () => {
-    hideModal();
-  });
+  bigPictureCancel.addEventListener('click', hideModal);
 
 
-  body.addEventListener('keydown', (evt) => {
-    if (isEscEvent(evt)){
-      evt.preventDefault();
-      hideModal();
-    }
-  });
+  body.addEventListener('keydown', onEscHideModal);
 
   bigPictureImg.src = picture.url;
   likesCount.textContent = picture.likes;

@@ -40,7 +40,7 @@ const createComment = (id) => ({
 });
 
 const createPhoto = (id) => {
-  const countOfComments = getRandomNumber(1, 5);
+  const countOfComments = getRandomNumber(1, 105);
   const comments = new Array(countOfComments).fill(null).map((comment, index) => createComment(index + 1));
 
   return {
