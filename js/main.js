@@ -7,4 +7,3 @@ const photos = createPhotos();
 
 drawingThumbnails(photos);
 
-// createFullSizePhotos();
