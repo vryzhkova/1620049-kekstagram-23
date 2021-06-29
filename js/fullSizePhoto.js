@@ -10,7 +10,7 @@ const body = document.querySelector('.body');
 const commentsList = document.querySelector('.social__comments');
 const commentTemplate = document.querySelector('.social__comment');
 const socialCaption = document.querySelector('.social__caption');
-const commentCount = document.querySelector('.social__comment-count--js');
+const commentCount = document.querySelector('.social__comment-count');
 const commentsLoader = document.querySelector('.comments-loader');
 
 const COMMENTS_LOAD_STEP = 5;
@@ -24,8 +24,7 @@ function removeComments() {
 function createComments(comments, commentsLength) {
   const commentsListFragment = document.createDocumentFragment();
   const startComments = comments.slice(0, commentsLength);
-  commentCount.textContent = startComments.length; //  socialCommentCount.firstChild.textContent = `${renderedCommentsLength} из  `;
-
+  commentCount.firstChild.textContent = `${startComments.length} из  `;
   if (startComments.length === comments.length) {
     commentsLoader.classList.add('hidden');
   }
