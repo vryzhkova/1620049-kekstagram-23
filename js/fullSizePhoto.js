@@ -75,21 +75,21 @@ export function createFullSizePhoto(picture) {
 
   createComments(picture.comments, commentsSize);
 
-  function loadMoreComments() {
+  function onCommentsLoaderClick() {
     commentsSize = commentsSize + COMMENTS_LOAD_STEP;
     createComments(picture.comments, commentsSize);
   }
 
-  commentsLoader.addEventListener('click', loadMoreComments);
+  commentsLoader.addEventListener('click', onCommentsLoaderClick);
   bigPictureCancel.addEventListener('click', () => {
     hideModal();
-    commentsLoader.removeEventListener('click', loadMoreComments);
+    commentsLoader.removeEventListener('click', onCommentsLoaderClick);
   });
 
   body.addEventListener('keydown', onEscHideModal);
   body.addEventListener('keydown', (evt) => {
     if (isEscEvent(evt)) {
       evt.preventDefault();
-      commentsLoader.removeEventListener('click', loadMoreComments);
+      commentsLoader.removeEventListener('click', onCommentsLoaderClick);
     } }, { once: true });
 }
