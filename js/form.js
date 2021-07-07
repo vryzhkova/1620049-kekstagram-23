@@ -1,4 +1,6 @@
 import { isEscEvent, isValidString } from './util.js';
+import { resetEffects } from './applyEffect.js';
+import { setDefaultImageScale } from './changeScale.js';
 
 const uploadFile = document.querySelector('#upload-file');
 const uploadOverlay = document.querySelector('.img-upload__overlay');
@@ -7,7 +9,7 @@ const uploadCancel = document.querySelector('#upload-cancel');
 const textHashtags = document.querySelector('.text__hashtags');
 const textDescription = document.querySelector('.text__description');
 const re = /^#[A-Za-zА-Яа-я0-9]{1,19}$/;
-
+const imgUploadEffectLevel = document.querySelector('.img-upload__effect-level');
 
 const closeModal = function () {
   uploadOverlay.classList.add('hidden');
@@ -16,6 +18,7 @@ const closeModal = function () {
   uploadFile.value = '';
   textHashtags.value = '';
   textDescription.value = '';
+  resetEffects();
 };
 
 const onCloseModalEsc = (evt) => {
@@ -32,6 +35,8 @@ uploadFile.addEventListener('change', () => {
   uploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
   body.addEventListener('keydown', onCloseModalEsc);
+  setDefaultImageScale();
+  imgUploadEffectLevel.classList.add('visually-hidden');
 });
 
 
