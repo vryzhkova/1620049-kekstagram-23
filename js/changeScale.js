@@ -7,14 +7,14 @@ const DEFAULT_SCALE_VALUE = 100;
 const scaleControlSmaller = document.querySelector('.scale__control--smaller');
 const scaleControlBigger = document.querySelector('.scale__control--bigger');
 const scaleControlValue = document.querySelector('.scale__control--value');
-const imgUploadPreview = document.querySelector('.img-upload__preview');
+const imgUploadPicture = document.querySelector('.img-upload__picture');
 
 
 let currentScale = 100;
 
 const setImageScale = (newScale) => {
   scaleControlValue.value = `${newScale}%`;
-  imgUploadPreview.style = `transform: scale(${newScale / 100})`;
+  imgUploadPicture.style = `transform: scale(${newScale / 100})`;
   currentScale = newScale;
 };
 

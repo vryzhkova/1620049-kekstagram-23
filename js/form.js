@@ -9,6 +9,7 @@ const uploadCancel = document.querySelector('#upload-cancel');
 const textHashtags = document.querySelector('.text__hashtags');
 const textDescription = document.querySelector('.text__description');
 const re = /^#[A-Za-zА-Яа-я0-9]{1,19}$/;
+const imgUploadEffectLevel = document.querySelector('.img-upload__effect-level');
 
 const closeModal = function () {
   uploadOverlay.classList.add('hidden');
@@ -35,6 +36,7 @@ uploadFile.addEventListener('change', () => {
   body.classList.add('modal-open');
   body.addEventListener('keydown', onCloseModalEsc);
   setDefaultImageScale();
+  imgUploadEffectLevel.classList.add('visually-hidden');
 });
 
 

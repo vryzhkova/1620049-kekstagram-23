@@ -95,6 +95,35 @@ export function resetEffects () {
   });
 }
 
+function applyEffect (effectId) {
+  switch (effectId) {
+    case 'effect-chrome':
+      imgUploadPreview.style.filter = `grayscale(${effectLevelValue.value})`;
+      showSlider();
+      break;
+    case 'effect-marvin':
+      imgUploadPreview.style.filter = `invert(${effectLevelValue.value}%)`;
+      showSlider();
+      break;
+    case 'effect-sepia':
+      imgUploadPreview.style.filter = `sepia(${effectLevelValue.value})`;
+      showSlider();
+      break;
+    case 'effect-phobos':
+      imgUploadPreview.style.filter = `blur(${effectLevelValue.value}px)`;
+      showSlider();
+      break;
+    case 'effect-heat':
+      imgUploadPreview.style.filter = `brightness(${effectLevelValue.value})`;
+      showSlider();
+      break;
+
+    default:
+      imgUploadPreview.style.filter = '';
+      imgUploadEffectLevel.classList.add('visually-hidden');
+  }
+}
+
 uploadEffects.addEventListener('click', (evt) => {
   if (!evt.target.id) {
     return;
@@ -111,39 +140,8 @@ uploadEffects.addEventListener('click', (evt) => {
 
   slider.noUiSlider.on('update', (__, handle, unencoded) => {
     effectLevelValue.value = unencoded[handle];
-
-    if (effectId === 'effect-none') {
-      imgUploadPreview.style.filter = '';
-      imgUploadEffectLevel.classList.add('visually-hidden');
-    }
-
-    if (effectId === 'effect-chrome') {
-      imgUploadPreview.style.filter = `grayscale(${effectLevelValue.value})`;
-      showSlider();
-    }
-
-    if (effectId === 'effect-marvin') {
-      imgUploadPreview.style.filter = `invert(${effectLevelValue.value}%)`;
-      showSlider();
-    }
-
-    if (effectId === 'effect-sepia') {
-      imgUploadPreview.style.filter = `sepia(${effectLevelValue.value})`;
-      showSlider();
-    }
-
-    if (effectId === 'effect-phobos') {
-      imgUploadPreview.style.filter = `blur(${effectLevelValue.value}px)`;
-      showSlider();
-    }
-
-    if (effectId === 'effect-heat') {
-      imgUploadPreview.style.filter = `brightness(${effectLevelValue.value})`;
-      showSlider();
-    }
+    applyEffect(effectId);
   });
-
 
   slider.noUiSlider.updateOptions(EFFECT_OPTIONS[effectId]);
 });
-
