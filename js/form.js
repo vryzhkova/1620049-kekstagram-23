@@ -99,13 +99,19 @@ const removeEventListeners = (fn) => {
   document.removeEventListener('keydown', fn);
 };
 
-function onCloseSuccessMessage(evt) {
+function removeSuccessMessage(fn)  {
+  document.body.lastElementChild.remove();
+  removeEventListeners(fn);
+}
+
+function onCloseSuccessMessageEsc(evt) {
   if (isEscEvent(evt)) {
-    document.body.lastElementChild.remove();
-    removeEventListeners(onCloseSuccessMessage);
-  } else if (evt.target === document.body.lastElementChild) {
-    document.body.lastElementChild.remove();
-    removeEventListeners(onCloseSuccessMessage);
+    removeSuccessMessage(onCloseSuccessMessageEsc);
+  }}
+
+function onCloseSuccessMessageClickOutside(evt) {
+  if (evt.target === document.body.lastElementChild) {
+    removeSuccessMessage(onCloseSuccessMessageClickOutside);
   }
 }
 
@@ -113,10 +119,11 @@ function showSuccessMessage() {
   const successElement = successTemplate.cloneNode(true);
   successElement.querySelector('.success__button').addEventListener('click', () => {
     document.body.lastElementChild.remove();
-    removeEventListeners(onCloseSuccessMessage);
+    removeEventListeners(onCloseSuccessMessageEsc);
+    removeEventListeners(onCloseSuccessMessageClickOutside);
   });
-  document.addEventListener('click', onCloseSuccessMessage);
-  document.addEventListener('keydown', onCloseSuccessMessage);
+  document.addEventListener('click', onCloseSuccessMessageClickOutside);
+  document.addEventListener('keydown', onCloseSuccessMessageEsc);
   document.body.append(successElement);
 }
 
@@ -124,11 +131,12 @@ function showErrorMessage() {
   const errorElement = errorTemplate.cloneNode(true);
   errorElement.querySelector('.error__button').addEventListener('click', () => {
     document.body.lastElementChild.remove();
-    removeEventListeners(onCloseSuccessMessage);
+    removeEventListeners(onCloseSuccessMessageEsc);
+    removeEventListeners(onCloseSuccessMessageClickOutside);
   });
 
-  document.addEventListener('click', onCloseSuccessMessage);
-  document.addEventListener('keydown', onCloseSuccessMessage);
+  document.addEventListener('click', onCloseSuccessMessageClickOutside);
+  document.addEventListener('keydown', onCloseSuccessMessageEsc);
   document.body.append(errorElement);
 }
 
