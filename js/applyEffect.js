@@ -88,11 +88,9 @@ noUiSlider.create(slider, {
 });
 
 export function resetEffects () {
-  imgUploadPreview.style.filter = '';
+  imgUploadPreview.style.filter = 'none';
+  imgUploadPreview.classList = '';
   imgUploadEffectLevel.classList.add('visually-hidden');
-  Object.keys(EFFECT_CLASS).forEach((key) => {
-    imgUploadPreview.classList.remove(EFFECT_CLASS[key]);
-  });
 }
 
 function applyEffect (effectId) {
