@@ -3,7 +3,16 @@ import { createFullSizePhoto } from './fullSizePhoto.js';
 const pictureTemplate = document.querySelector('#picture').content;
 const pictures = document.querySelector('.pictures');
 
-export function drawingThumbnails (photos) {
+function removePhotos() {
+  const pictureLinks = document.querySelectorAll('a.picture');
+  Array.from(pictureLinks).forEach((photo) => {
+    photo.remove();
+  });
+}
+
+
+export function renderPhotos(photos) {
+  removePhotos();
   photos.forEach((photo) => {
     const photosElement = pictureTemplate.cloneNode(true);
     photosElement.querySelector('.picture__img').src = photo.url;
