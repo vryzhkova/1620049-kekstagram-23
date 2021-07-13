@@ -4,8 +4,9 @@ import './changeScale.js';
 import './applyEffect.js';
 import { getPhotos } from './api.js';
 import { showAlert } from './util.js';
-import { showFilter, setFilterDiscussedClick, setFilterDefaultClick, setFilterRandomClick } from './filter.js';
+import { showFilter, setFilterClick } from './filter.js';
 import { debounce } from './utils/debounce.js';
+import { shuffle } from './utils/shuffle.js';
 
 const RERENDER_DELAY = 500;
 
@@ -14,16 +15,26 @@ function sortByCommentsLength(photos) {
 }
 
 function randomTenPhotos(photos) {
-  return photos.slice().sort(() => Math.random() - 0.5).slice(0, 10);
+  return shuffle(photos).slice(0, 10);
 }
 
 getPhotos((photos) => {
   showFilter();
   renderPhotos(photos);
 
-  setFilterDefaultClick(debounce(() => renderPhotos(photos), RERENDER_DELAY));
-  setFilterDiscussedClick(debounce(() => renderPhotos(sortByCommentsLength(photos)), RERENDER_DELAY));
-  setFilterRandomClick(debounce(() => renderPhotos(randomTenPhotos(photos)), RERENDER_DELAY));
+  setFilterClick(debounce((filterId) => {
+    switch(filterId) {
+      case 'filter-default':
+        renderPhotos(photos);
+        break;
+      case 'filter-random':
+        renderPhotos(randomTenPhotos(photos));
+        break;
+      case 'filter-discussed':
+        renderPhotos(sortByCommentsLength(photos));
+        break;
+    }
+  }, RERENDER_DELAY));
 }, () => {
   showAlert('Не удалось загрузить данные');
 });
