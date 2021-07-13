@@ -1,12 +1,40 @@
-import { drawingThumbnails } from './drawingThumbnails.js';
+import { renderPhotos } from './renderPhotos.js';
 import './form.js';
 import './changeScale.js';
 import './applyEffect.js';
-import { getData } from './api.js';
+import { getPhotos } from './api.js';
 import { showAlert } from './util.js';
+import { showFilter, setFilterClick } from './filter.js';
+import { debounce } from './utils/debounce.js';
+import { shuffle } from './utils/shuffle.js';
 
-getData((photos) => {
-  drawingThumbnails(photos);
+const RERENDER_DELAY = 500;
+
+function sortByCommentsLength(photos) {
+  return photos.slice().sort((left, right) => right.comments.length - left.comments.length);
+}
+
+function randomTenPhotos(photos) {
+  return shuffle(photos).slice(0, 10);
+}
+
+getPhotos((photos) => {
+  showFilter();
+  renderPhotos(photos);
+
+  setFilterClick(debounce((filterId) => {
+    switch(filterId) {
+      case 'filter-default':
+        renderPhotos(photos);
+        break;
+      case 'filter-random':
+        renderPhotos(randomTenPhotos(photos));
+        break;
+      case 'filter-discussed':
+        renderPhotos(sortByCommentsLength(photos));
+        break;
+    }
+  }, RERENDER_DELAY));
 }, () => {
   showAlert('Не удалось загрузить данные');
 });

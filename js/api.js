@@ -1,7 +1,7 @@
 const SEND_DATA_URL = 'https://23.javascript.pages.academy/kekstagram';
 const GET_DATA_URL = 'https://23.javascript.pages.academy/kekstagram/data';
 
-const getData = (onSuccess, onFail) => {
+const getPhotos = (onSuccess, onFail) => {
   fetch(GET_DATA_URL)
     .then((response) => response.json())
     .then((photos) => {
@@ -32,4 +32,4 @@ const sendData = (onSuccess, onFail, body) => {
     });
 };
 
-export { getData, sendData };
+export { getPhotos, sendData };
