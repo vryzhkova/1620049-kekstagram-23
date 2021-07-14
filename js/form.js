@@ -1,6 +1,6 @@
 import { isEscEvent, isValidString } from './util.js';
-import { resetEffects } from './applyEffect.js';
-import { setDefaultImageScale } from './changeScale.js';
+import { resetEffects } from './apply-effect.js';
+import { setDefaultImageScale } from './change-scale.js';
 import { sendData } from './api.js';
 
 const uploadFile = document.querySelector('#upload-file');

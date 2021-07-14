@@ -1,7 +1,7 @@
-import { renderPhotos } from './renderPhotos.js';
+import { renderPhotos } from './render-photos.js';
 import './form.js';
-import './changeScale.js';
-import './applyEffect.js';
+import './change-scale.js';
+import './apply-effect.js';
 import { getPhotos } from './api.js';
 import { showAlert } from './util.js';
 import { showFilter, setFilterClick } from './filter.js';
