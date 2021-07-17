@@ -89,7 +89,7 @@ noUiSlider.create(slider, {
 
 export function resetEffects () {
   imgUploadPreview.style.filter = 'none';
-  imgUploadPreview.classList = '';
+  imgUploadPreview.classList = 'img-upload__preview';
   imgUploadEffectLevel.classList.add('visually-hidden');
 }
 

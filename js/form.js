@@ -14,6 +14,12 @@ const imgUploadEffectLevel = document.querySelector('.img-upload__effect-level')
 const uploadForm = document.querySelector('#upload-select-image');
 const successTemplate = document.querySelector('#success').content;
 const errorTemplate = document.querySelector('#error').content;
+const imgUploadPicture = document.querySelector('.img-upload__picture');
+
+uploadFile.addEventListener('change', (event) => {
+  const file = event.target.files[0];
+  imgUploadPicture.src = URL.createObjectURL(file);
+});
 
 const closeModal = function () {
   uploadOverlay.classList.add('hidden');

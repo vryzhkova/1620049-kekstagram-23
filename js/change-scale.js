@@ -1,4 +1,3 @@
-
 const MAX_VALUE = 100;
 const SCALE_STEP = 25;
 const MIN_VALUE = 25;
@@ -22,14 +21,14 @@ export function setDefaultImageScale () {
   setImageScale(DEFAULT_SCALE_VALUE);
 }
 
-const minusButtonClickHandler = () => {
+const onMinusButtonClick = () => {
   if (currentScale > MIN_VALUE) {
     currentScale -= SCALE_STEP;
     setImageScale(currentScale);
   }
 };
 
-const plusButtonClickHandler = () => {
+const onPlusButtonClick = () => {
   if (currentScale < MAX_VALUE) {
     currentScale += SCALE_STEP;
     setImageScale(currentScale);
@@ -37,6 +36,6 @@ const plusButtonClickHandler = () => {
 };
 
 
-scaleControlSmaller.addEventListener ('click', minusButtonClickHandler);
+scaleControlSmaller.addEventListener ('click', onMinusButtonClick);
 
-scaleControlBigger.addEventListener ('click', plusButtonClickHandler);
+scaleControlBigger.addEventListener ('click', onPlusButtonClick);

@@ -15,6 +15,9 @@ const commentsLoader = document.querySelector('.comments-loader');
 
 const COMMENTS_LOAD_STEP = 5;
 
+let currentComments = [];
+let commentsSize = COMMENTS_LOAD_STEP;
+
 function removeComments() {
   Array.from(commentsList.children).forEach((child) => {
     child.remove();
@@ -48,20 +51,34 @@ function openModal() {
   body.classList.add('modal-open');
 }
 
+function onCommentsLoaderClick() {
+  commentsSize = commentsSize + COMMENTS_LOAD_STEP;
+  createComments(currentComments, commentsSize);
+}
+
 function hideModal() {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
   commentsLoader.classList.remove('hidden');
+
+  commentsLoader.removeEventListener('click', onCommentsLoaderClick);
+  commentsSize = COMMENTS_LOAD_STEP;
+  currentComments = [];
 }
 
 const onEscHideModal = (evt) => {
-  if (isEscEvent(evt)){
+  if (isEscEvent(evt)) {
     evt.preventDefault();
     hideModal();
     body.removeEventListener('keydown', onEscHideModal);
   }
 };
 
+function onBigPictureCancelClick() {
+  hideModal();
+  body.removeEventListener('keydown', onEscHideModal);
+  bigPictureCancel.removeEventListener('click', onBigPictureCancelClick);
+}
 
 export function createFullSizePhoto(picture) {
   openModal();
@@ -71,25 +88,12 @@ export function createFullSizePhoto(picture) {
   commentsCount.textContent = picture.comments.length;
   socialCaption.textContent = picture.description;
 
-  let commentsSize = COMMENTS_LOAD_STEP;
+  currentComments = picture.comments.slice();
 
-  createComments(picture.comments, commentsSize);
-
-  function onCommentsLoaderClick() {
-    commentsSize = commentsSize + COMMENTS_LOAD_STEP;
-    createComments(picture.comments, commentsSize);
-  }
+  createComments(currentComments, commentsSize);
 
   commentsLoader.addEventListener('click', onCommentsLoaderClick);
-  bigPictureCancel.addEventListener('click', () => {
-    hideModal();
-    commentsLoader.removeEventListener('click', onCommentsLoaderClick);
-  });
+  bigPictureCancel.addEventListener('click', onBigPictureCancelClick);
 
   body.addEventListener('keydown', onEscHideModal);
-  body.addEventListener('keydown', (evt) => {
-    if (isEscEvent(evt)) {
-      evt.preventDefault();
-      commentsLoader.removeEventListener('click', onCommentsLoaderClick);
-    } }, { once: true });
 }
